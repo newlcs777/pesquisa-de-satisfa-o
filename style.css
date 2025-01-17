@@ -1,0 +1,600 @@
+/* Reset básico (melhorado) */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-image: url("./azul.jpg.jpg"); /* Mantenha a imagem de fundo */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    color: #f8f9fa; /* Cor do texto mais clara para melhor contraste com o fundo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-y: auto; /* Adicionado para evitar que o conteúdo seja cortado em telas menores */
+}
+
+/* Container com gradiente animado */
+.container {
+    position: relative; /* Para permitir o uso de ::before e ::after */
+    padding: 40px; /* Espaçamento interno */
+    border-radius: 30px; /* Cantos arredondados */
+    overflow: hidden; /* Garante que o conteúdo fique dentro dos limites do container */
+    width: 100%;
+    max-width: 800px; /* Largura máxima */
+    color: white; /* Cor do texto */
+    border: double 4px transparent;
+    background-image: linear-gradient(#ffffff, #ffffff),
+      linear-gradient(
+        137.48deg,
+        #ffdb3b 10%,
+        #fe53bb 45%,
+        #8f51ea 67%,
+        #0044ff 87%
+      );
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    width: 150%; /* Cobre todo o container */
+    height: 150%;
+    top: -25%; /* Posiciona para cobrir bordas */
+    left: -25%;
+    background: linear-gradient(180deg, rgb(0, 183, 255), rgb(255, 48, 255));
+    animation: rotateGradient 4s linear infinite; /* Animação do gradiente */
+    z-index: 1; /* Fica abaixo do conteúdo */
+    transition: all 0.2s linear;
+}
+
+.container::after {
+    content: '';
+    position: absolute;
+    inset: 0; /* Preenche o container */
+    background: rgba(0, 191, 255, 0.5); /* Fundo azul escuro translúcido */
+    border-radius: 30px; /* Cantos arredondados */
+    z-index: 2; /* Camada acima do gradiente */
+    backdrop-filter: blur(10px);
+}
+
+.container * {
+    position: relative;
+    z-index: 3; /* Garante que o texto e inputs fiquem acima do fundo */
+}
+
+/* Animação do gradiente */
+@keyframes rotateGradient {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Título */
+h1 {
+    font-size: 2.5em; /* Usa em para melhor escalabilidade */
+    margin-bottom: 30px;
+    color: white; /* Cor branca para melhor contraste com o fundo azul */
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Adiciona sombra ao texto */
+}
+
+/* Parágrafos */
+p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+/* Estilo do formulário */
+.form-group {
+    margin-bottom:5px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: white; /* Cor branca para os labels */
+    font-size: 1.1rem;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: none; /* Remove a borda padrão */
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9); /* Fundo branco translúcido */
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 1); /* Fundo branco no foco */
+    box-shadow: 0 0 10px rgba(0, 178, 255, 0.5);
+}
+
+/* Estilo dos radio buttons e checkboxes */
+.radio-group,
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.radio-group label,
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    color: white;
+    cursor: pointer;
+}
+
+.radio-group input[type="radio"],
+.checkbox-group input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid white;
+    background-color: transparent;
+    border-radius: 50%; /* Visual moderno */
+    margin-right: 10px;
+    cursor: pointer;
+    vertical-align: middle;
+    transition: all 0.2s;
+}
+
+.radio-group input[type="radio"]:checked,
+.checkbox-group input[type="checkbox"]:checked {
+    background-color: #00b2ff; /* Cor azul vibrante ao marcar */
+    border-color: #00b2ff;
+}
+
+.radio-group input[type="radio"]:checked::before {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.checkbox-group input[type="checkbox"]:checked::before {
+    content: "\2713"; /* Caractere de checkmark (✓) */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: white;
+}
+
+/* Textarea */
+textarea {
+    resize: vertical; /* Permite redimensionamento vertical */
+    min-height: 150px; /* Altura mínima */
+}
+
+/* Botão */
+button.submit-btn {
+    display: block;
+    margin: 0 auto; /* Centraliza o botão */
+    width: 15rem;
+    overflow: hidden;
+    height: 3.5rem;
+    background-size: 300% 300%;
+    cursor: pointer;
+    backdrop-filter: blur(1rem);
+    border-radius: 5rem;
+    transition: 0.5s;
+    animation: gradient_301 5s ease infinite;
+    border: double 4px transparent;
+    background-image: linear-gradient(#ffffff, #ffffff),
+      linear-gradient(
+        137.48deg,
+        #ffdb3b 10%,
+        #fe53bb 45%,
+        #8f51ea 67%,
+        #0044ff 87%
+      );
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.yes-no-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.yes-no-buttons button {
+    width: 150px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.yes-no-buttons button:hover {
+    background-color: #00b2ff;
+    color: white;
+    transform: scale(1.1);
+}
+
+#container-stars {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: 0.5s;
+    backdrop-filter: blur(1rem);
+    border-radius: 5rem;
+}
+
+strong {
+    z-index: 2;
+    font-family: "Avalors Personal Use";
+    font-size: 14px;
+    letter-spacing: 5px;
+    color: #ffffff;
+    text-shadow: 0 0 4px white;
+}
+
+#glow {
+    position: absolute;
+    display: flex;
+    width: 12rem;
+}
+
+.circle {
+    width: 100%;
+    height: 30px;
+    filter: blur(2rem);
+    animation: pulse_3011 4s infinite;
+    z-index: -1;
+}
+
+.circle:nth-of-type(1) {
+    background: rgba(254, 83, 186, 0.636);
+}
+
+.circle:nth-of-type(2) {
+    background: rgba(142, 81, 234, 0.704);
+}
+
+.btn:hover #container-stars {
+    z-index: 1;
+    background-color: white;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+}
+
+.btn:active {
+    border: double 4px #fe53bb;
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    animation: none;
+}
+
+.btn:active .circle {
+    background: #fe53bb;
+}
+
+#stars {
+    position: relative;
+    background: transparent;
+    width: 200rem;
+    height: 200rem;
+}
+
+#stars::after {
+    content: "";
+    position: absolute;
+    top: -10rem;
+    left: -100rem;
+    width: 100%;
+    height: 100%;
+    animation: animStarRotate 90s linear infinite;
+}
+
+#stars::after {
+    background-image: radial-gradient(#ffffff 1px, transparent 1%);
+    background-size: 50px 50px;
+}
+
+#stars::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 170%;
+    height: 500%;
+    animation: animStar 60s linear infinite;
+}
+
+#stars::before {
+    background-image: radial-gradient(#ffffff 1px, transparent 1%);
+    background-size: 50px 50px;
+    opacity: 0.5;
+}
+
+@keyframes animStar {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-135rem);
+    }
+}
+
+@keyframes animStarRotate {
+    from {
+        transform: rotate(360deg);
+    }
+
+    to {
+        transform: rotate(0);
+    }
+}
+
+@keyframes gradient_301 {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes pulse_3011 {
+    0% {
+        transform: scale(0.75);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+
+    100% {
+        transform: scale(0.75);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+}
+
+.playstore-button {
+    position:fixed;
+    top: 20px;
+    right: 400px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #000;
+    border-radius: 9999px;
+    background-color: rgba(0, 0, 0, 1);
+    padding: 0.625rem 1.5rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    outline: 0;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    z-index: 1000;
+}
+
+.playstore-button:hover {
+    background-color: transparent;
+    color: rgba(0, 0, 0, 1);
+}
+
+.icon {
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.texts {
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1;
+}
+
+.text-1 {
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
+.text-2 {
+    font-weight: 600;
+}
+
+.socialContainer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.socialContainer .socialContainer {
+    width: 40px;
+    height: 40px;
+    background-color: rgb(44, 44, 44);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition-duration: 0.3s;
+}
+
+.socialContainer .containerOne:hover {
+    background-color: #d62976;
+    transition-duration: 0.3s;
+    transform: scale(1.3);
+    border-radius: 10px;
+}
+
+.socialContainer .containerTwo:hover {
+    background-color: #00acee;
+    transition-duration: 0.3s;
+    transform: scale(1.3);
+    border-radius: 10px;
+}
+
+.socialContainer .containerThree:hover {
+    background-color: #0e76a8;
+    transition-duration: 0.3s;
+    transform: scale(1.3);
+    border-radius: 10px;
+}
+
+
+.social-buttons {
+    
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: fit-content;
+    height: fit-content;
+    background-color: rgb(238, 238, 238);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.055);
+    }
+    
+    /* for all social containers*/
+    .myapp-social-container 
+    myapp-social-container {
+        position: fixed; /* Mantém  posição fixa na tela */
+        bottom: 20px; /* Distância da parte inferior */
+        right: 20px; /* Distância da direita */
+        display: flex; /* Usa flexbox para layout */
+        flex-direction: row; /* Alinha os itens na horizontal */
+        align-items: center; /* Centraliza verticalmente */
+        justify-content: flex-start; /* Alinha os itens à esquerda */
+        
+        width: 52px; /* Largura automática para se ajustar ao conteúdo */
+        height: 52px; /* Altura automática para se ajustar ao conteúdo */
+        padding: 10px; /* Adiciona espaço interno */
+        border: 2px solid #000; /* Borda de 2px */
+        border-radius: 9999px; /* Bordas arredondadas */
+        background-color: rgb(44, 44, 44); /* Cor de fundo */
+        margin: 10px; /* Margem externa */
+        overflow: hidden; /* Oculta conteúdo que ultrapassa os limites */
+        transition-duration: 0.3s; /* Duração da transição */
+
+    }
+        
+        /* Instagram */
+        .socialOne{
+            background-color: #d62976;
+            transition-duration: 0.3s;
+            transform: scale(1.5);
+            border-radius: 15px;
+            padding: 10px;
+        }
+        
+        /* Twitter */
+        .socialTwo {
+            background-color: #00acee;
+            transition-duration: 0.3s;
+            transform: scale(1.5);
+            border-radius: 15px;
+            padding: 10px;
+        }
+        
+        /* LinkedIn */
+        .socialThree{
+            background-color: #0072b1;
+            transition-duration: 0.3s;
+            transform: scale(1.5);
+            border-radius: 15px;
+            padding: 10px;
+        }
+        
+        /* WhatsApp */
+        .socialFour {
+            background-color: #25d366;
+            transition-duration: 0.3s;
+            transform: scale(1.5);
+            border-radius: 15px;
+            padding: 10px;
+        }
+        
+        .socialContainer:active {
+            transform: scale(0.9);
+            transition-duration: 0.3s;
+        }
+        
+        .socialSvg {
+            width: 40px; /* Largura do SVG */
+            height: 40px;
+            padding: 2px;
+        }
+        
+        .socialSvg path {
+            fill: rgb(255, 255, 255); /* Cor do caminho SVG */
+        }
+        
+        
+        
+        
+        
+        
+    
+    
+
+
+    
+    
